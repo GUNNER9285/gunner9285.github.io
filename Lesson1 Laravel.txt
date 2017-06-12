@@ -1,0 +1,66 @@
+อ้างอิง
+https://laravel.com/docs/5.4/eloquent
+https://laravel-news.com/laravel-5-4-key-too-long-error
+https://beziergames.com/products/extra-uw-cards
+https://www.w3schools.com/bootstrap/bootstrap_theme_me.asp
+
+
+run cmd composer
+cd ..											ย้อนกลับออกมา 1 Folder
+cd xxx											เข้าไปที่ Folder xxx
+composer										แนะนำคำสั่ง
+composer create-project laravel/laravel xxx		สร้างProject laravel ชื่อว่า xxx
+composer update									เรียกใช้ package ใน composer.json
+composer require laravelcollective/html			
+
+github in cmd
+Tip by https://pages.github.com/
+git clone URL									ทำการ clone git จาก server มายังเครื่องเรา โดย URL เป็นลิงก์ของ repository ที่เราสร้างขึ้น
+git add .										trackทุกอย่างใน dir ลง git
+git commit -m "xxx"								บันทึกไฟล์ลง git โดยมีรายละเอียดเป็น xxx
+git push origin master							ส่ง git ขึ้นไปยัง server github
+
+ตัวช่วยสร้าง
+http://laravelsd.com
+Ctrl+Alt+A										บันทึกไฟล์ขึ้นgit
+VCS > Commit ...								เหมือน git commit -m "xxx"	
+VCS > Git > Push								เหมือน git push origin master
+
+
+MVC
+- model จะอยู่ที่ โฟลเดอร์ Provider
+ในหน้า cmd
+	โฟลเดอร์ Migration
+php artisan make:migration xxx					สร้าง DB ใน Migration ชื่อ xxx
+php artisan migrate								นำ DB ใน Migration ขึ้นไปยัง DB ของ Project 	//เรียก function up()
+php artisan migrate:reset						นำ DB ในการ migrate	ตะกี้ออก				//เรียก function down()
+php artisan migrate:refresh						เรียก function down() ตามด้วย เรียก function up() ทันที
+php artisan migrate:status						ตรวจสอบว่า migration ไหน กำลังใช้งานอยู่
+	โฟลเดอร์ Provider
+php artisan make:model xxx						สร้าง Model ชื่อ xxx
+ใน Editor
+	ภายใน Model
+protected $table = "xxx";						xxx ชื่อtable
+protected $fillable = ['aaa','bbb'];			aaa,bbb ชื่อattribute	
+public $timestamps = true;						ตั้งให้มีการtimestamps >> มีการบันทึกว่าสร้างเมื่อไหร่่ และ อัพเดทเมื่อไหร่	
+
+- controller จะอยู่ที่ โฟลเดอร์ Contollers
+ในหน้า cmd
+	โฟลเดอร์ Contollers
+php artisan make:model							สร้าง Contollers ชื่อ xxx
+	ภายใน Contollers
+public function indeXx(){
+        $cards = Card::all();					
+        return $cards;							
+}
+	อธิบาย 
+เรียก ใช้ข้อมูล"ทั้งหมด" ใน Model xxx ไปไว้ที่ ตัวแปร cards แล้ว ส่งค่า ที่อยุ่ในตัวแปรcardsกลับไป
+	ภายใน routes
+Route :: get('/',function () {
+    return view('welcome');
+});
+	อธิบาย
+เมื่อเข้า http://localhost:8000 จะเรียกใช้หน้า view ใน โฟลเดอร์ resources ที่มีชื่อว่า welcome
+Route::get('/card', 'CardController@indeXx');
+	อธิบาย
+เมื่อเข้า http://localhost:8000/card จะเรียกใช้หน้า CardController และคำสั่ง indeXx
